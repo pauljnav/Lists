@@ -11,3 +11,7 @@ https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95
 The most atomic way to train and inference a GPT in pure, dependency-free Python.
 This file is the complete algorithm.
 
+# NotebookLM
+
+[Overview and General Tips](https://sosleepytv.atlassian.net/wiki/external/MjgyZWE0ZTUzNzM1NDYyZTk0NWZkNjZlYTlkYjYwNmM) wiki by [OderintMetuant](https://x.com/OderintMetuant)
+
