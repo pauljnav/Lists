@@ -1,0 +1,44 @@
+---
+applyTo: "**/*.ps1,**/*.psm1,**/*.psd1"
+description: "PowerShell project coding standards: approved verbs, advanced functions, parameter validation, error handling, object output, comment-based help, and more."
+---
+
+- Use PowerShell 7+ unless the project specifically targets Windows PowerShell 5.1.
+- Always comply with [PowerShell Required Development Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/required-development-guidelines) and prefer idiomatic PowerShell patterns.
+- Try to comply with [Strongly Encouraged Development Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines)
+- When possible, also comply with [Advisory Development Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/advisory-development-guidelines)
+- Use [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) for linting and code analysis.
+- Use approved PowerShell verbs for functions and commands.
+- Use meaningful PascalCase names for functions, parameters, classes, and public variables.
+- Use descriptive camelCase consistently for local variables according to the project convention.
+- Use complete cmdlet names over aliases (for example, use `Get-ChildItem` instead of `ls`, `Where-Object` instead of `?`).
+- Use splatting for commands with many parameters to improve readability and avoid use ot the backtick character for line splitting.
+- Prefer the pipeline and object-based output over text parsing whenever possible.
+- Avoid `Write-Host` for data or status that callers may need to consume; use `Write-Output`, `Write-Verbose`, `Write-Information`, `Write-Warning`, or `Write-Error` appropriately.
+- Add comment-based help to public functions and scripts using `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.EXAMPLE`, `.OUTPUTS`, and `.NOTES` where applicable.
+- Use `[CmdletBinding()]` and typed parameters for reusable functions and advanced scripts.
+- Use parameter validation attributes such as `[Parameter(Mandatory)]`, `[ValidateNotNullOrEmpty()]`, `[ValidateSet()]`, and `[ValidateRange()]` where appropriate.
+- Enable strict behavior with `Set-StrictMode -Version Latest` when compatible with the project.
+- Check `$LASTEXITCODE` after invoking native executables when the exit code affects the result.
+- Use `Join-Path`, `Resolve-Path`, and `Split-Path` for path operations instead of manual string concatenation - use `[system.io.path]` methods when suitable.  
+- Use `-LiteralPath` for paths that may contain wildcard characters or come from untrusted input.
+- Dispose of resources and remove temporary files in `finally` blocks when appropriate.
+- Do not use `Invoke-Expression` or build executable commands from untrusted input.
+- Parameter validation is essential for all functions that accept untrusted input. 
+- Never hardcode secrets, credentials, tokens, or private keys. Use environment variables, secure stores, managed identities, or approved secret-management tools.
+- Avoid logging secrets or sensitive personal information. Use `Get-Credential`, `PSCredential`, and `SecureString` only where appropriate, and do not treat `SecureString` as a complete security boundary.
+- Use environment variables or configuration files for deployment-specific settings, with safe defaults where practical.
+- Store module dependencies and required versions in `RequiredModules`, a module manifest, a `.psd1` file, or documented setup instructions.
+- Use a module manifest (`.psd1`) for reusable modules and export only the intended public functions.
+- Place reusable functions in `.psm1` files and keep executable entry points in `.ps1` files.
+- Place tests in a `tests/` directory, mirroring the source structure.
+- Use [Pester](https://pester.dev/) for automated testing unless otherwise specified.
+- Mock external services, file systems, network calls, and other non-deterministic dependencies in unit tests.
+- Test success paths, validation failures, terminating errors, native command failures, and cleanup behavior.
+- Use CI to run PSScriptAnalyzer, Pester, and required compatibility checks.
+- Use UTF-8 encoding and LF line endings for all files.
+- Add comments to explain complex logic and key decisions; do not use comments as a substitute for clear code.
+- Keep scripts idempotent where practical, especially for provisioning, deployment, and configuration tasks.
+- Support `-WhatIf` and `-Confirm` for functions that change system state when practical.
+- Make output automation-friendly: return structured objects, use clear messages, and avoid relying on color alone to convey meaning.
+- Document setup, required PowerShell version, dependencies, permissions, and examples in `README.md`.
